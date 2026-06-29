@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Travel Portal</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+        
+        body { 
+            background: linear-gradient(135deg, #0b0f19, #111827); 
+            color: #f3f4f6; 
+            min-height: 100vh; 
+            padding: 50px 20px; 
+        }
+
+        .container { max-width: 1100px; margin: 0 auto; }
+        
+        /* Glassmorphism Header */
+        header { 
+            text-align: center; 
+            margin-bottom: 40px; 
+            background: rgba(17, 24, 39, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 24px;
+        }
+        header h1 { 
+            font-size: 2.4rem; 
+            font-weight: 800;
+            background: linear-gradient(to right, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px; 
+        }
+        header p { color: #9ca3af; font-size: 1rem; }
+        
+        .main-layout { display: grid; grid-template-columns: 350px 1fr; gap: 30px; align-items: start; }
+        
+        /* Modern Input Card */
+        .form-card { 
+            background: rgba(17, 24, 39, 0.7); 
+            backdrop-filter: blur(12px); 
+            border: 1px solid rgba(255, 255, 255, 0.08); 
+            padding: 28px; 
+            border-radius: 24px; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4); 
+        }
+        .form-card h3 { color: #f3f4f6; margin-bottom: 22px; font-size: 1.2rem; font-weight: 600; letter-spacing: 0.5px;}
+        .form-group { margin-bottom: 18px; display: flex; flex-direction: column; gap: 8px; }
+        
+        label { font-size: 0.75rem; color: #6b7280; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+        
+        input { 
+            background: rgba(10, 15, 26, 0.8); 
+            border: 1px solid rgba(255,255,255,0.1); 
+            border-radius: 12px; 
+            color: #fff; 
+            padding: 14px; 
+            font-size: 0.95rem; 
+            outline: none; 
+            transition: all 0.3s ease; 
+        }
+        input:focus { border-color: #6366f1; box-shadow: 0 0 10px rgba(99, 102, 241, 0.2); }
+        
+        button { 
+            background: linear-gradient(135deg, #4f46e5, #6366f1); 
+            color: #fff; 
+            border: none; 
+            padding: 14px; 
+            font-weight: 600; 
+            border-radius: 12px; 
+            cursor: pointer; 
+            transition: all 0.2s ease; 
+            margin-top: 10px; 
+            font-size: 1rem; 
+        }
+        button:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3); }
+        
+        /* Analytics Tracker Section */
+        .trips-section { display: flex; flex-direction: column; gap: 24px; }
+        
+        .budget-tracker { 
+            background: linear-gradient(90deg, rgba(99, 102, 241, 0.15), rgba(56, 189, 248, 0.05)); 
+            border: 1px solid rgba(99, 102, 241, 0.2); 
+            padding: 20px 30px; 
+            border-radius: 20px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+        .budget-tracker h2 { font-size: 1.05rem; color: #9ca3af; font-weight: 500; }
+        .budget-tracker span { font-size: 1.8rem; font-weight: 800; color: #38bdf8; letter-spacing: -0.5px; }
+        
+        /* Clean Trip Cards Display Grid */
+        .trips-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+        
+        .trip-card { 
+            background: rgba(17, 24, 39, 0.4); 
+            border: 1px solid rgba(255, 255, 255, 0.05); 
+            padding: 24px; 
+            border-radius: 20px; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 12px; 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+        }
+        .trip-card:hover { 
+            border-color: rgba(99, 102, 241, 0.3); 
+            transform: translateY(-4px); 
+            background: rgba(17, 24, 39, 0.6);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+        
+        .trip-dest { font-size: 1.25rem; font-weight: 700; color: #ffffff; display: flex; align-items: center; gap: 8px;}
+        
+        .trip-meta { 
+            display: flex; 
+            justify-content: space-between; 
+            font-size: 0.85rem; 
+            color: #9ca3af; 
+            border-bottom: 1px solid rgba(255,255,255,0.06); 
+            padding-bottom: 14px; 
+            margin-bottom: 4px;
+        }
+        .trip-meta strong { color: #38bdf8; font-weight: 600;}
+        .trip-meta .cost-highlight { color: #10b981; }
+        
+        .trip-acts { font-size: 0.9rem; color: #9ca3af; line-height: 1.5; }
+        .trip-acts strong { color: #e5e7eb; font-weight: 500; display: block; margin-bottom: 4px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Thomas Cook Travel Portal</h1>
+            <p>Design your custom itineraries and monitor expenses cleanly inside a smart dashboard layer.</p>
+        </header>
+
+        <div class="main-layout">
+            <div class="form-card">
+                <h3>Map New Destination</h3>
+                <div class="form-group">
+                    <label>Destination Target</label>
+                    <input type="text" id="destInput" placeholder="e.g., Paris, France">
+                </div>
+                <div class="form-group">
+                    <label>Duration Block</label>
+                    <input type="text" id="durationInput" placeholder="e.g., 7 Days">
+                </div>
+                <div class="form-group">
+                    <label>Estimated Budget (INR)</label>
+                    <input type="number" id="budgetInput" placeholder="e.g., 45000">
+                </div>
+                <div class="form-group">
+                    <label>Core Planned Activities</label>
+                    <input type="text" id="actsInput" placeholder="e.g., Louvre Museum, Café Exploring">
+                </div>
+                <button onclick="addTrip()" style="width: 100%;">Add Destination</button>
+            </div>
+
+            <div class="trips-section">
+                <div class="budget-tracker">
+                    <h2>Total Running Investment Accumulation:</h2>
+                    <span id="totalBudget">₹0</span>
+                </div>
+
+                <div class="trips-grid" id="tripsGrid">
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:5000/api/trips';
+
+        async function loadTrips() {
+            try {
+                const res = await fetch(API_URL);
+                const result = await res.json();
+                
+                if (!result.success) return;
+
+                const trips = result.data;
+                const grid = document.getElementById('tripsGrid');
+                grid.innerHTML = '';
+
+                let absoluteTotal = 0;
+
+                trips.forEach(trip => {
+                    absoluteTotal += trip.budget;
+                    const card = document.createElement('div');
+                    card.classList.add('trip-card');
+                    card.innerHTML = `
+                        <div class="trip-dest">🗺️ ${trip.destination}</div>
+                        <div class="trip-meta">
+                            <span>Duration: <strong>${trip.duration}</strong></span>
+                            <span>Allocation: <strong class="cost-highlight">₹${trip.budget.toLocaleString()}</strong></span>
+                        </div>
+                        <div class="trip-acts"><strong>Planned Activities</strong>${trip.activities}</div>
+                    `;
+                    grid.appendChild(card);
+                });
+
+                document.getElementById('totalBudget').innerText = `₹${absoluteTotal.toLocaleString()}`;
+            } catch (err) {
+                console.error("Failed to stream travel details from API:", err);
+            }
+        }
+
+        async function addTrip() {
+            const destination = document.getElementById('destInput').value.trim();
+            const duration = document.getElementById('durationInput').value.trim();
+            const budget = document.getElementById('budgetInput').value.trim();
+            const activities = document.getElementById('actsInput').value.trim();
+
+            if (!destination || !duration || !budget) {
+                alert("Please satisfy all essential parameters before processing.");
+                return;
+            }
+
+            try {
+                const res = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ destination, duration, budget, activities })
+                });
+
+                const result = await res.json();
+                if (result.success) {
+                    document.getElementById('destInput').value = '';
+                    document.getElementById('durationInput').value = '';
+                    document.getElementById('budgetInput').value = '';
+                    document.getElementById('actsInput').value = '';
+                    loadTrips();
+                }
+            } catch (err) {
+                console.error("Error committing trip card payload:", err);
+            }
+        }
+
+        window.onload = loadTrips;
+    </script>
+</body>
+</html>
